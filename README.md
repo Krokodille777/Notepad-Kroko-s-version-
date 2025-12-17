@@ -1,0 +1,1 @@
+# Notepad-Kroko-s-version-
