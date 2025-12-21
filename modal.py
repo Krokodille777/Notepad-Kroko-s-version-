@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLa
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 
-from main import MainWindow
+from notepad import MainWindow
 
 class FontDialog(QDialog):
     def __init__(self):
