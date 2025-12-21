@@ -11,8 +11,6 @@ class MainWindow(QWidget):
        #Windows Properties
         self.setWindowTitle("Notepad - Kroko's Version")  
         self.setGeometry(100, 100, 800, 600)
-        self.setStyleSheet("background-color: #f0f0f0;")
-
 
         #Menu Bar
         main_menu = QMenuBar(self)
@@ -32,6 +30,15 @@ class MainWindow(QWidget):
         self.setLayout(mainLayout)
 
         file_menu.addAction(exit_action)
+        file_menu.addSeparator()
+        file_menu.addAction("New")
+        file_menu.addAction("Open")
+        file_menu.addAction("Save")
+        file_menu.addAction("Save As")
+        file_menu.addSeparator()
+        file_menu.addAction("Print")
+
+
         edit_menu.addAction("Undo")
         edit_menu.addAction("Redo")
         edit_menu.addSeparator()
