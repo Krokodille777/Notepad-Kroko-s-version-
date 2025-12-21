@@ -55,7 +55,7 @@ class MainWindow(QWidget):
 
         #NotePad Area & Input
 
-        text_area = QLabel("Enter text here...", self)
+        text_area = QLabel("", self)
         
 
 
