@@ -50,6 +50,7 @@ class MainWindow(QWidget):
         edit_menu.addSeparator()
         edit_menu.addAction("Select All")
         edit_menu.addAction("Change Font")
+        edit_menu.triggered.connect(self.openEditFontDialog)
         mainLayout.addWidget(main_menu)
 
         #NotePad Area & Input
@@ -59,14 +60,16 @@ class MainWindow(QWidget):
 
 
         text_area.setAlignment(Qt.AlignTop | Qt.AlignLeft)
-        text_area.setStyleSheet("background-color: white; border: 1px solid black; color: black;")
+        text_area.setStyleSheet("background-color: white; border: 1px solid black; color: black; font-size: 20px; font-family: Courier New;")
         text_area.setFixedSize(780, 520)
 
-        text_area.setTextInteractionFlags(Qt.TextEditable | Qt.TextSelectableByMouse)
-        text_area.enterEvent = lambda event: text_area.setStyleSheet("background-color: #e6f7ff; border: 1px solid black; color: black; font-size: 14px;")
-        text_area.leaveEvent = lambda event: text_area.setStyleSheet("background-color: white; border: 1px solid black; color: black;")
+        text_area.setTextInteractionFlags(Qt.TextEditable | Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard) #Even shortcuts like Ctrl+C, Ctrl+V work now
         mainLayout.addWidget(text_area)
 
+
+    def openEditFontDialog(self):
+        dialog = FontDialog()
+        dialog.openDialog()
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     

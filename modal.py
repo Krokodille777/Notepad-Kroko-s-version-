@@ -14,3 +14,12 @@ class FontDialog(QDialog):
         label.setAlignment(Qt.AlignCenter)
         layout.addWidget(label)
         close_button = QPushButton("Close", self)
+
+
+        close_button.clicked.connect(self.close)
+
+        layout.addWidget(close_button)
+        self.setLayout(layout)
+
+    def openDialog(self):
+        self.exec()
