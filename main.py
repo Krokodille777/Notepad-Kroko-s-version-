@@ -50,6 +50,20 @@ class MainWindow(QWidget):
         edit_menu.addAction("Change Font")
         mainLayout.addWidget(main_menu)
 
+        #NotePad Area & Input
+
+        text_area = QLabel("Enter text here...", self)
+        
+
+
+        text_area.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+        text_area.setStyleSheet("background-color: white; border: 1px solid black; color: black;")
+        text_area.setFixedSize(780, 520)
+
+        text_area.setTextInteractionFlags(Qt.TextEditable | Qt.TextSelectableByMouse)
+        text_area.enterEvent = lambda event: text_area.setStyleSheet("background-color: #e6f7ff; border: 1px solid black; color: black; font-size: 14px;")
+        text_area.leaveEvent = lambda event: text_area.setStyleSheet("background-color: white; border: 1px solid black; color: black;")
+        mainLayout.addWidget(text_area)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
