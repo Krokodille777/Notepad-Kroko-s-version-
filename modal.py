@@ -76,3 +76,47 @@ class FontDialog(QDialog):
         self.text_widget.setStyleSheet(base_style + style_sheet)
         
         self.close()
+
+
+class saveOrNotDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        
+        self.setWindowTitle("Save Changes")
+        self.setGeometry(200, 200, 300, 150)
+        layout = QVBoxLayout()
+        
+        label = QLabel("Do you want to save changes?", self)
+        label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(label)
+        
+        button_layout = QHBoxLayout()
+        
+        save_button = QPushButton("Save", self)
+        save_button.clicked.connect(self.save)
+        button_layout.addWidget(save_button)
+        
+        dont_save_button = QPushButton("Don't Save", self)
+        dont_save_button.clicked.connect(self.dont_save)
+        button_layout.addWidget(dont_save_button)
+        
+        cancel_button = QPushButton("Cancel", self)
+        cancel_button.clicked.connect(self.cancel)
+        button_layout.addWidget(cancel_button)
+        
+        layout.addLayout(button_layout)
+        self.setLayout(layout)
+        
+        self.user_choice = None  
+
+    def save(self):
+        self.user_choice = "save"
+        self.accept()
+
+    def dont_save(self):
+        self.user_choice = "dont_save"
+        self.accept()
+
+    def cancel(self):
+        self.user_choice = "cancel"
+        self.reject()

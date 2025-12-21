@@ -1,8 +1,8 @@
-from PySide6.QtWidgets import QWidget, QApplication, QVBoxLayout, QPushButton, QTextEdit, QMenuBar, QMenu
+from PySide6.QtWidgets import QWidget, QApplication, QVBoxLayout, QPushButton, QTextEdit, QMenuBar, QMenu, QDialog, QLabel
 from PySide6.QtGui import QAction
 from PySide6.QtCore import Qt
 
-from modal import FontDialog
+from modal import FontDialog, saveOrNotDialog
 import sys
 
 
@@ -29,13 +29,30 @@ class MainWindow(QWidget):
         exit_action.triggered.connect(self.close)
 
         file_menu.addAction(exit_action)
+
         file_menu.addSeparator()
-        file_menu.addAction("New")
-        file_menu.addAction("Open")
-        file_menu.addAction("Save")
-        file_menu.addAction("Save As")
+
+        new_action = QAction("New", self)
+        new_action.setShortcut("Ctrl+N")
+        new_action.triggered.connect(self.new)
+        file_menu.addAction(new_action)
+
+        open_action = QAction("Open", self)
+        open_action.setShortcut("Ctrl+O")
+        file_menu.addAction(open_action)
+
+        save_action = QAction("Save", self)
+        save_action.setShortcut("Ctrl+S")
+        file_menu.addAction(save_action)
+
+        save_as_action = QAction("Save As", self)
+        save_as_action.setShortcut("Ctrl+Shift+S")
+        file_menu.addAction(save_as_action)
+
         file_menu.addSeparator()
-        file_menu.addAction("Print")
+        print_action = QAction("Print", self)
+        print_action.setShortcut("Ctrl+P")
+        file_menu.addAction(print_action)
 
         undo_action = QAction("Undo", self)
         undo_action.setShortcut("Ctrl+Z")
@@ -89,6 +106,34 @@ class MainWindow(QWidget):
         dialog = FontDialog(self.text_area, self)
         dialog.exec()
 
+    def undo(self):
+        self.text_area.undo()
+    def redo(self):
+        self.text_area.redo()
+    def cut(self):
+        self.text_area.cut()
+    def copy(self):
+        self.text_area.copy()
+    def paste(self):
+        self.text_area.paste()
+    def selectAll(self):
+        self.text_area.selectAll()
+    def new(self):
+        if self.text_area.toPlainText(): # If there is text, clear it
+            save_dialog = saveOrNotDialog(self)
+            result = save_dialog.exec()
+            if result == QDialog.Accepted:
+                self.text_area.clear()  
+
+        else:
+            self.text_area.clear()
+
+
+    def saveTxt(self):
+        warningLabel = QLabel("Save functionality is not implemented yet.", self)
+        warningLabel.setAlignment(Qt.AlignCenter)
+        warningLabel.show()
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
