@@ -37,14 +37,39 @@ class MainWindow(QWidget):
         file_menu.addSeparator()
         file_menu.addAction("Print")
 
-        edit_menu.addAction("Undo")
-        edit_menu.addAction("Redo")
+        undo_action = QAction("Undo", self)
+        undo_action.setShortcut("Ctrl+Z")
+        undo_action.triggered.connect(self.undo)
+        edit_menu.addAction(undo_action)
+
+        redo_action = QAction("Redo", self)
+        redo_action.setShortcut("Ctrl+Y")
+        redo_action.triggered.connect(self.redo)
+        edit_menu.addAction(redo_action)
+
         edit_menu.addSeparator()
-        edit_menu.addAction("Cut")
-        edit_menu.addAction("Copy")
-        edit_menu.addAction("Paste")
+
+        cut_action = QAction("Cut", self)
+        cut_action.setShortcut("Ctrl+X")
+        cut_action.triggered.connect(self.cut)
+        edit_menu.addAction(cut_action)
+
+        copy_action = QAction("Copy", self)
+        copy_action.setShortcut("Ctrl+C")
+        copy_action.triggered.connect(self.copy)
+        edit_menu.addAction(copy_action)
+
+        paste_action = QAction("Paste", self)
+        paste_action.setShortcut("Ctrl+V")
+        paste_action.triggered.connect(self.paste)
+        edit_menu.addAction(paste_action)
         edit_menu.addSeparator()
-        edit_menu.addAction("Select All")
+        
+        
+        select_all_action = QAction("Select All", self)
+        select_all_action.setShortcut("Ctrl+A")
+        select_all_action.triggered.connect(self.selectAll)
+        edit_menu.addAction(select_all_action)
         
        
         change_font_action = QAction("Change Font", self)
@@ -64,19 +89,6 @@ class MainWindow(QWidget):
         dialog = FontDialog(self.text_area, self)
         dialog.exec()
 
-    def undo(self):
-        self.text_area.undo()
-    def redo(self):
-        self.text_area.redo()
-    
-    def cut(self):
-        self.text_area.cut()
-    def copy(self):
-        self.text_area.copy()
-    def paste(self):
-        self.text_area.paste()
-    def selectAll(self):
-        self.text_area.selectAll()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
