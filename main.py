@@ -46,14 +46,14 @@ class MainWindow(QWidget):
         edit_menu.addSeparator()
         edit_menu.addAction("Select All")
         
-        # Создаем действие для изменения шрифта
+       
         change_font_action = QAction("Change Font", self)
         change_font_action.triggered.connect(self.openEditFontDialog)
         edit_menu.addAction(change_font_action)
         
         mainLayout.addWidget(main_menu)
 
-        # NotePad Area - используем QTextEdit вместо QLabel
+        # NotePad Area
         self.text_area = QTextEdit("", self)
         self.text_area.setStyleSheet("background-color: white; border: 1px solid black; color: black; font-size: 20px; font-family: Courier New;")
         self.text_area.setFixedSize(780, 520)
@@ -64,6 +64,19 @@ class MainWindow(QWidget):
         dialog = FontDialog(self.text_area, self)
         dialog.exec()
 
+    def undo(self):
+        self.text_area.undo()
+    def redo(self):
+        self.text_area.redo()
+    
+    def cut(self):
+        self.text_area.cut()
+    def copy(self):
+        self.text_area.copy()
+    def paste(self):
+        self.text_area.paste()
+    def selectAll(self):
+        self.text_area.selectAll()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
