@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QApplication, QVBoxLayout, QPushButton, QTextEdit, QMenuBar, QMenu, QDialog, QLabel
+from PySide6.QtWidgets import QWidget, QApplication, QVBoxLayout, QPushButton, QTextEdit, QMenuBar, QMenu, QDialog, QLabel, QFileDialog
 from PySide6.QtGui import QAction
 from PySide6.QtCore import Qt
 
@@ -39,14 +39,17 @@ class MainWindow(QWidget):
 
         open_action = QAction("Open", self)
         open_action.setShortcut("Ctrl+O")
+        open_action.triggered.connect(self.openTxt)
         file_menu.addAction(open_action)
 
         save_action = QAction("Save", self)
         save_action.setShortcut("Ctrl+S")
+        save_action.triggered.connect(self.saveTxt)
         file_menu.addAction(save_action)
 
         save_as_action = QAction("Save As", self)
         save_as_action.setShortcut("Ctrl+Shift+S")
+        save_as_action.triggered.connect(self.saveTxt)
         file_menu.addAction(save_as_action)
 
         file_menu.addSeparator()
@@ -130,9 +133,20 @@ class MainWindow(QWidget):
 
 
     def saveTxt(self):
-        warningLabel = QLabel("Save functionality is not implemented yet.", self)
-        warningLabel.setAlignment(Qt.AlignCenter)
-        warningLabel.show()
+        options  = QFileDialog.Options()
+        file_path, _ = QFileDialog.getSaveFileName(self, "Save Text File", "", "Text Files (*.txt);;All Files (*)", options=options)
+        if file_path:
+            with open(file_path, 'w') as file:
+                file.write(self.text_area.toPlainText())
+
+    def openTxt(self):
+        options  = QFileDialog.Options()
+        file_path, _ =QFileDialog.getOpenFileName(self, "Open Text File", "", "Text Files (*.txt);;All Files (*)", options=options)
+        if file_path:
+            with open(file_path, 'r') as file:
+                content = file.read()
+                self.text_area.setPlainText(content)
+    
     
 
 if __name__ == "__main__":

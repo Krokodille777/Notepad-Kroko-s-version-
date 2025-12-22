@@ -1,7 +1,7 @@
 {
-    "font-size": "20",
-    "font-family": "Arial",
-    "font-color": "Blue",
-    "font-style": "Underline",
+    "font-size": "26",
+    "font-family": "Times New Roman",
+    "font-color": "Green",
+    "font-style": "Italic",
     "apply-shadows": true
 }
