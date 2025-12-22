@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QComboBox, QCheckBox
 from PySide6.QtCore import Qt
+import json
 
 class FontDialog(QDialog):
     def __init__(self, text_widget, parent=None):
@@ -54,6 +55,18 @@ class FontDialog(QDialog):
         layout.addWidget(apply_button)
         
         self.setLayout(layout)
+    def saveChangesintoJSON(self):
+            settings = {
+                "font-size": self.size_select.currentText(),
+                "font-family": self.family_select.currentText(),
+                "font-color": self.color_select.currentText(),
+                "font-style": self.style_select.currentText(),
+                "apply-shadows": self.apply_shadows.isChecked()
+            }
+
+            with(open("font_settings.json", "w")) as file:
+                json.dump(settings, file, indent = 4)
+
 
     def applyChanges(self):
         size = self.size_select.currentText()
@@ -74,8 +87,12 @@ class FontDialog(QDialog):
         print("Font Settings applied successfully!")
         base_style = "background-color: white; border: 1px solid black;"
         self.text_widget.setStyleSheet(base_style + style_sheet)
+
+        self.saveChangesintoJSON()
         
         self.close()
+
+       
 
 
 class saveOrNotDialog(QDialog):
