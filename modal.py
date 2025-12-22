@@ -137,3 +137,25 @@ class saveOrNotDialog(QDialog):
     def cancel(self):
         self.user_choice = "cancel"
         self.reject()
+
+
+class helpDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        
+        self.setWindowTitle("Help")
+        self.setGeometry(250, 250, 400, 300)
+        layout = QVBoxLayout()
+        
+        help_text = QLabel("This is a simple Notepad application.\n\n"
+                           "Use the File menu to create, open, and save files.\n"
+                           "Use the Edit menu for text editing options.\n"
+                           "Use the Choose Font in the Edit menu to change font settings.\n\n", self)
+        help_text.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+        layout.addWidget(help_text)
+        
+        close_button = QPushButton("Close", self)
+        close_button.clicked.connect(self.close)
+        layout.addWidget(close_button)
+        
+        self.setLayout(layout)

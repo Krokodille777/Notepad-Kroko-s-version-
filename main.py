@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QApplication, QVBoxLayout, QPushButton, Q
 from PySide6.QtGui import QAction
 from PySide6.QtCore import Qt
 
-from modal import FontDialog, saveOrNotDialog
+from modal import FontDialog, saveOrNotDialog, helpDialog
 import sys
 
 
@@ -23,6 +23,7 @@ class MainWindow(QWidget):
 
         file_menu = main_menu.addMenu("File")
         edit_menu = main_menu.addMenu("Edit")
+        help_menu = main_menu.addMenu("Help")
 
         exit_action = QAction("Exit", self)
         exit_action.setShortcut("Ctrl+Q")
@@ -96,6 +97,11 @@ class MainWindow(QWidget):
         change_font_action.triggered.connect(self.openEditFontDialog)
         edit_menu.addAction(change_font_action)
         
+        help_action = QAction("Help", self)
+        help_action.setShortcut("F1")
+        help_action.triggered.connect(lambda: helpDialog(self).exec())
+        help_menu.addAction(help_action)
+
         mainLayout.addWidget(main_menu)
 
         # NotePad Area
